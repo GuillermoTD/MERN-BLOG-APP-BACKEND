@@ -8,32 +8,32 @@ export const Login = (req, res) => {
 export const Signup = async (req, res) => {
   try {
     //campos enviados por el front end
-    // const { email, username, password } = req.body;
+    const { email, username, password } = req.body;
 
-    console.log(req.body)
+    // console.log(req.body)
 
-    // //validar si existe el usuario ingresado o el correo
-    // const userExist = UserModel.finfOne({ username });
-    // const emailExist = UserModel.finfOne({ email });
+    //validar si existe el usuario ingresado o el correo
+    const userExist = await UserModel.findOne({ username });
+    const emailExist = await UserModel.findOne({ email });
 
-    // if (userExist || emailExist)
-    //   return res.state(400).json({ error: "Usuario ya existe" });
 
-    // //se encripta contraseña
-    // const hashedPassword = bcrypt.hash(password, 10);
+    if (userExist || emailExist)
+      return res.status(400).json({ error: "Usuario ya existe" });
 
-    // console.log("contraseña", hashedPassword);
+    //se encripta contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // //Nuevo usuario
-    // const newUser = new UserModel({
-    //   username,
-    //   email,
-    //   password: hashedPassword,
-    // });
 
-    // //Se guarda el usuario
+    //Nuevo usuario
+    const newUser = new UserModel({
+      username,
+      email,
+      password: hashedPassword,
+    });
 
-    // await newUser.save();
+    //Se guarda el usuario
+
+    await newUser.save();
 
     res.send("Usuario registrado")
   } catch (error) {
