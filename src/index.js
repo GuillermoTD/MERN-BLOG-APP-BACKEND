@@ -1,10 +1,13 @@
 import express from 'express';
 import AuthRouter from "./routes/AuthRouter.js"
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 dotenv.config()
+
+app.use(cookieParser())
 
 // Middleware para interpretar JSON
 app.use(express.json());
