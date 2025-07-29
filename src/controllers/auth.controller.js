@@ -1,5 +1,5 @@
 import UserModel from "../models/UserModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 /*Este middleware valida que el token enviado sea valido, 
